@@ -3,8 +3,8 @@ Encoding.default_internal = Encoding.default_external = Encoding::UTF_8
 require 'rubygems'
 require 'bundler/setup'
 
-APP_ROOT = ::File.expand_path(::File.dirname(__FILE__))
-$:.unshift APP_ROOT+'/lib'
+APP_ROOT = File.expand_path(__dir__)
+$:.unshift File.join(APP_ROOT, 'lib')
 
 require 'db'
 require 'sass/plugin/rack'
