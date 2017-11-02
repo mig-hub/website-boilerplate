@@ -1,0 +1,19 @@
+@import "framework";
+
+// Vars
+
+$body-size: 16px;
+$ref-width: 1280px;
+$body-color: #ffffff;
+$background-color: #000000;
+$body-font-family: sans-serif;
+
+// Global
+
+body {
+  background-color: $background-color;
+  color: $body-color;
+  font-family: $body-font-family;
+  @include set-body-size;
+}
+

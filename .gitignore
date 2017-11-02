@@ -1,0 +1,8 @@
+.DS_Store
+private/
+.private/
+.bundle/
+.sass-cache/
+.env
+env.rb
+
