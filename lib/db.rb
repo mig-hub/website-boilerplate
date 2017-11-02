@@ -2,6 +2,8 @@ require 'mongo'
 require 'populate_me/mongo'
 require 'populate_me/grid_fs_attachment'
 
+Mongo::Logger.logger.level = Logger::ERROR
+
 if ENV['MONGODB_URI']
   MONGO = Mongo::Client.new(ENV['MONGODB_URI'])
 elsif ENV['MONGODB_NAME']
