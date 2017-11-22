@@ -39,6 +39,12 @@ class Main < Sinatra::Base
     slim :sitemap, layout: false
   end
 
+  get '/placeholder/:width-:height-:color.svg' do
+    content_type 'image/svg+xml'
+    cache_control :public, :must_revalidate, max_age: 3600
+    "<svg version='1.1' width='#{params[:width]}' height='#{params[:height]}' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' fill='##{params[:color]}' /></svg>"
+  end
+
   not_found do
     slim :'404'
   end
@@ -59,6 +65,11 @@ class Main < Sinatra::Base
 
     def md txt
       settings.markdown_parser.render txt.to_s
+    end
+
+    def placeholder width, height=nil, color='f6f6f6'
+      height ||= width
+      "/placeholder/#{width}-#{height}-#{color}.svg"
     end
 
   end
