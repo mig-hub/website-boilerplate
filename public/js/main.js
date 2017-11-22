@@ -2,10 +2,12 @@ var is_touch_device = !!('ontouchstart' in window) || !!('msmaxtouchpoints' in w
 
 $(function() {
 
-  if(is_touch_device) {
+  if (is_touch_device) {
     // For being able to use `body.touch-device` in CSS
     $('body').addClass("touch-device");
   }
+
+  $('.lazy').lazyload();
 
 });
 
