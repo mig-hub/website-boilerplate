@@ -69,7 +69,7 @@ class Main < Sinatra::Base
 
     def placeholder width, height=nil, color='f6f6f6'
       height ||= width
-      "/placeholder/#{width}-#{height}-#{color}.svg"
+      "/placeholder/#{width}-#{height}-#{color.sub(/^#/,'')}.svg"
     end
 
   end
