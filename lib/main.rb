@@ -46,12 +46,13 @@ class Main < Sinatra::Base
   end
 
   not_found do
-    slim :'404'
+    @msg = 'Not Found'
+    slim :error
   end
 
   error do
-    @msg = env['sinatra.error'].message
-    slim :'500'
+    @msg = "Error: #{env['sinatra.error'].message}"
+    slim :error
   end
 
 
