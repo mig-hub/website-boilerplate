@@ -15,5 +15,8 @@ body {
   color: $body-color;
   font-family: $body-font-family;
   @include set-body-size;
+  @include mobile {
+    @include set-body-size;
+  }
 }
 

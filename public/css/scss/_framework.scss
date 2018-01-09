@@ -2,10 +2,11 @@
 
 $vendors: ('-webkit-','-moz-','-ms-','-o-','');
 $body-size: 16px;
-$desktop-ref-width: 1280px;
-$ref-width: $desktop-ref-width;
+$ref-width: 1280px;
 $tablet-breakpoint: 1000px;
 $phone-breakpoint: 700px;
+
+$mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
 
 // Helpers
 
@@ -29,6 +30,30 @@ $phone-breakpoint: 700px;
   font-size: em($size, $font-size);
   @if $line-height != normal {
     line-height: line-height($line-height, $size);
+  }
+}
+
+@mixin portrait {
+  @media screen and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin breakpoint($name) {
+  @media screen and (max-width: map-get($name, breakpoint)) {
+    $tmp-size: $body-size;
+    $tmp-width: $ref-width;
+    $body-size: map-get($name, body-size) !global;
+    $ref-width: map-get($name, ref-width) !global;
+    @content;
+    $body-size: $tmp-size !global;
+    $ref-width: $tmp-width !global;
+  }
+}
+
+@mixin mobile {
+  @include breakpoint($mobile) {
+    @content;
   }
 }
 
