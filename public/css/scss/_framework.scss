@@ -39,6 +39,12 @@ $mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
   }
 }
 
+@mixin landscape {
+  @media screen and (orientation: landscape) {
+    @content;
+  }
+}
+
 @mixin breakpoint($name) {
   @media screen and (max-width: map-get($name, breakpoint)) {
     $tmp-size: $body-size;
