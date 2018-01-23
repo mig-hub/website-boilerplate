@@ -7,7 +7,10 @@ $(function() {
     $('body').addClass("touch-device");
   }
 
-  $('.lazy').lazyload();
+  $('img.lazy').lazyload({
+    data_attribute: 'src',
+    effect: 'fadeIn'
+  });
 
 });
 
