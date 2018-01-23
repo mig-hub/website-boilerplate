@@ -24,10 +24,11 @@ Sass::Plugin.options.merge!({
 })
 use Sass::Plugin::Rack
 
-raise "Change key and secret for cookies in config.ru"
+raise "Set SESSION_KEY_SECRET in .env with <session-key>/<session-secret>" if ENV['SESSION_KEY_SECRET'].nil?
+session_key, session_secret = ENV['SESSION_KEY_SECRET'].split('/')
 use Rack::Session::Cookie, {
-  :key => 'changeme', 
-  :secret => 'changeme', 
+  :key => "#{session_key}.session", 
+  :secret => session_secret, 
   :expire_after=>(365 * 24 * 60 * 60)
 }
 
