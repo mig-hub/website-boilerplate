@@ -33,6 +33,11 @@ class Main < Sinatra::Base
     slim :home
   end
 
+  get '/cookie-policy' do
+    @meta_title = "Cookie Policy - #{@meta_title}"
+    slim :cookie_policy
+  end
+
   get '/sitemap.xml' do
     @domain = 'http://www.example.com'
     content_type 'text/xml'
