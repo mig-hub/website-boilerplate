@@ -63,6 +63,37 @@ $mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
   }
 }
 
+@mixin portrait-or($name) {
+  @media screen and (orientation: portrait), screen and (max-width: map-get($name, breakpoint)) {
+    $tmp-size: $body-size;
+    $tmp-width: $ref-width;
+    $body-size: map-get($name, body-size) !global;
+    $ref-width: map-get($name, ref-width) !global;
+    @content;
+    $body-size: $tmp-size !global;
+    $ref-width: $tmp-width !global;
+  }
+}
+
+@mixin landscape-not($name) { // Opposite of portrait-or
+  @media screen and (orientation: landscape) and (min-width: map-get($name, breakpoint)) {
+    @content;
+  }
+}
+
+
+@mixin portrait-or-mobile {
+  @include portrait-or($mobile) {
+    @content;
+  }
+}
+
+@mixin landscape-not-mobile { // Opposite of portrait-or-mobile
+  @include landscape-not($mobile) {
+    @content;
+  }
+}
+
 @mixin inline-block {
   display: -moz-inline-stack;
   display: inline-block;
