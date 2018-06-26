@@ -100,6 +100,15 @@ $mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
   }
 }
 
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
 @mixin inline-block {
   display: -moz-inline-stack;
   display: inline-block;
