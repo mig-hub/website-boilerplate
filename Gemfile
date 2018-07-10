@@ -10,7 +10,7 @@ source 'https://rubygems.org' do
   gem 'mongo'
   gem 'bson_ext'
   gem 'rack-grid-serve'
-  gem 'populate-me'
+  gem 'populate-me', '~> 0.7'
   gem 'rack-cerberus'
   gem 'racksh'
 
