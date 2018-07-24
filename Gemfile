@@ -12,6 +12,7 @@ source 'https://rubygems.org' do
   gem 'rack-grid-serve'
   gem 'populate-me', '~> 0.7'
   gem 'rack-cerberus'
+  gem 'rack-ssl-enforcer'
   gem 'racksh'
 
   group :development, :test do

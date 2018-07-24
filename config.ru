@@ -8,8 +8,11 @@ $:.unshift File.join(APP_ROOT, 'lib')
 
 require 'db'
 require 'sass/plugin/rack'
+require 'rack/ssl-enforcer'
 require 'main'
 require 'admin'
+
+use Rack::SslEnforcer, except_environments: 'development', :only => '/admin'
 
 use Rack::Deflater
 
