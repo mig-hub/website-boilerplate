@@ -60,6 +60,11 @@ class Main < Sinatra::Base
     slim :error
   end
 
+  # For certbot ssl certificate challenge
+  get "/.well-known/acme-challenge/:certbot_validation" do
+    ENV['CERTBOT_TOKEN']
+  end
+
 
   helpers do
 
