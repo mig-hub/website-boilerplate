@@ -4,12 +4,6 @@ require 'slim'
 require 'redcarpet'
 require 'web_utils'
 
-class TargetBlankRenderer < Redcarpet::Render::HTML
-  def initialize(extensions = {})
-    super extensions.merge(link_attributes: { target: "_blank" })
-  end
-end
-
 class Main < Sinatra::Base
 
   set :root, ::File.expand_path('../..', __FILE__)
@@ -19,8 +13,7 @@ class Main < Sinatra::Base
   set(
     :markdown_parser,
     Redcarpet::Markdown.new(
-      # Redcarpet::Render::HTML.new(:hard_wrap => true),
-      TargetBlankRenderer.new(:hard_wrap => true),
+      Redcarpet::Render::HTML.new(:hard_wrap => true, link_attributes: {target: '_blank'}),
       :autolink => true,
       :no_intra_emphasis=>true,
       :space_after_headers => true
