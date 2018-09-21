@@ -83,6 +83,25 @@ class Main < Sinatra::Base
       "/placeholder/#{width}-#{height}-#{color.sub(/^#/,'')}.svg"
     end
 
+    def preview?
+      ['yes','true'].include?(params[:_preview])
+    end
+
+    def not_live_yet
+      pass if settings.production? and not preview?
+    end
+
+    def pass_unless_published object
+      if object.respond_to? :published?
+        pass unless object.published? or preview?
+      elsif object.respond_to? :published
+        pass unless object.published or preview?
+      else
+        raise "#{object} does not respond to :published? or :published."
+      end
+    end
+
+
   end
 
 end
