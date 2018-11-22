@@ -16,7 +16,9 @@ use Rack::SslEnforcer, except_environments: 'development', :only => '/admin'
 
 use Rack::Deflater
 
-use Rack::GridServe, db: DB, prefix: 'attachment'
+if PopulateMe::Mongo.settings.default_attachment_class.name == 'PopulateMe::GridFS'
+  use Rack::GridServe, db: PopulateMe::GridFS.settings.db, prefix: 'attachment'
+end
 
 Sass::Plugin.options.merge!({
   cache: false,

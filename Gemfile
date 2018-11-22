@@ -9,7 +9,8 @@ source 'https://rubygems.org' do
   gem 'redcarpet'
   gem 'mongo'
   gem 'bson_ext'
-  gem 'rack-grid-serve'
+  gem 'rack-grid-serve' # For Gridfs attachments
+  # gem 'aws-sdk-s3', '~> 1' # For S3 attachments
   gem 'populate-me', '~> 0.7'
   gem 'rack-cerberus'
   gem 'rack-ssl-enforcer'
