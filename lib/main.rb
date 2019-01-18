@@ -6,6 +6,8 @@ require 'web_utils'
 
 class Main < Sinatra::Base
 
+  MetaImage = Struct.new(:url, :width, :height)
+
   set :root, ::File.expand_path('../..', __FILE__)
 
   set :static_cache_control, [:public, max_age: 600]
@@ -24,8 +26,10 @@ class Main < Sinatra::Base
     cache_control :public, :must_revalidate, max_age: 60
 
     unless request.xhr?
-      @meta_title = 'Title'
+      @meta_site_name = 'Title'
+      @meta_title = @meta_site_name.dup
       @meta_description = "Description"
+      @meta_image = nil
     end
   end
 
