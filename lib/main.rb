@@ -105,6 +105,55 @@ class Main < Sinatra::Base
       end
     end
 
+    VIMEO_BASE_OPTS = {
+      color: 'ffffff',
+      title: 0,
+      byline: 0,
+      portrait: 0,
+      autopause: 0,
+      playbar: 0,
+    }
+    VIMEO_LOOP_OPTS = {
+      autoplay: 1,
+      muted: 1,
+      loop: 1,
+      background: 1,
+    }
+    YOUTUBE_BASE_OPTS = {
+      rel: 0,
+      controls: 0,
+      showinfo: 0,
+      autopause: 0,
+      autohide: 1,
+      modestbranding: 1,
+    }
+    YOUTUBE_LOOP_OPTS = {
+      autoplay: 1,
+      loop: 1,
+      mute: 1,
+      fs: 0,
+    }
+    def video_src video_id, options={}
+      player = options.delete(:player) || guess_video_player(video_id)
+      loop_mode = options.delete(:loop_mode) || false
+      if player == :youtube
+        base_url = 'https://www.youtube.com/embed/'
+        player_options = YOUTUBE_BASE_OPTS.dup.merge(playlist: video_id)
+        player_options.merge!(YOUTUBE_LOOP_OPTS) if loop_mode
+      else
+        base_url = 'https://player.vimeo.com/video/'
+        player_options = VIMEO_BASE_OPTS.dup
+        player_options.merge!(VIMEO_LOOP_OPTS) if loop_mode
+      end
+      player_options.merge!(options)
+      player_options_string = player_options.map do |k,v|
+        "#{k}=#{v}"
+      end.join('&amp;')
+      "#{base_url}#{video_id}?#{player_options_string}"
+    end
+    def guess_video_player video_id
+      video_id =~ /^\d+$/ ? :vimeo : :youtube
+    end
 
   end
 
