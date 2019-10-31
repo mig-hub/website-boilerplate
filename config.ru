@@ -3,7 +3,7 @@ Encoding.default_internal = Encoding.default_external = Encoding::UTF_8
 require 'rubygems'
 require 'bundler/setup'
 
-APP_ROOT = File.expand_path(__dir__)
+APP_ROOT = __dir__
 $:.unshift File.join(APP_ROOT, 'lib')
 
 require 'db'

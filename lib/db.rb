@@ -31,7 +31,7 @@ else
   PopulateMe::GridFS.set :db, db
 end
 
-Dir[File.join(File.expand_path(__dir__),'models','**','*.rb')].each do |f|
+Dir[File.join(__dir__,'models','**','*.rb')].each do |f|
   require f
 end
 
