@@ -4,7 +4,7 @@ require 'populate_me/mongo'
 Mongo::Logger.logger.level = Logger::ERROR
 
 if ENV['MONGODB_URI']
-  mongoclient = Mongo::Client.new(ENV['MONGODB_URI'])
+  mongoclient = Mongo::Client.new(ENV['MONGODB_URI'], retry_writes: false)
 elsif ENV['MONGODB_NAME']
   mongoclient = Mongo::Client.new([ '127.0.0.1:27017' ], :database => ENV['MONGODB_NAME'])
 else
