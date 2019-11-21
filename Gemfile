@@ -5,7 +5,7 @@ source 'https://rubygems.org' do
   gem 'rack'
   gem 'sinatra'
   gem 'slim'
-  gem 'sass'
+  gem 'rack-sassc'
   gem 'redcarpet'
   gem 'mongo'
   gem 'bson_ext'

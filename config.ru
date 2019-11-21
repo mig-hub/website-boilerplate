@@ -5,7 +5,7 @@ APP_ROOT = __dir__
 $:.unshift File.join(APP_ROOT, 'lib')
 
 require 'db'
-require 'sass/plugin/rack'
+require 'rack/sassc'
 require 'rack/ssl-enforcer'
 require 'main'
 require 'admin'
@@ -18,14 +18,9 @@ if PopulateMe::Mongo.settings.default_attachment_class.name == 'PopulateMe::Grid
   use Rack::GridServe, db: PopulateMe::GridFS.settings.db, prefix: 'attachment'
 end
 
-Sass::Plugin.options.merge!({
-  cache: false,
-  style: :compressed,
-  template_location: './public/css/scss',
-  css_location: './public/css',
-  always_check: ENV['RACK_ENV']=='development'
-})
-use Sass::Plugin::Rack
+use Rack::SassC, {
+  scss_location: 'public/css/scss',
+}
 
 raise "Set SESSION_KEY_SECRET in .env with <session-key>/<session-secret>" if ENV['SESSION_KEY_SECRET'].nil?
 $session_key, session_secret = ENV['SESSION_KEY_SECRET'].split('/')
