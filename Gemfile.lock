@@ -16,7 +16,7 @@ GEM
       web-utils (~> 0)
     puma (4.3.0)
       nio4r (~> 2.0)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-cerberus (1.1.2)
       rack (>= 1.0)
     rack-grid-serve (0.0.11)
