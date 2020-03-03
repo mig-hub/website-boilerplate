@@ -14,7 +14,7 @@ GEM
       json (~> 2.1)
       sinatra (~> 2)
       web-utils (~> 0)
-    puma (4.3.0)
+    puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-cerberus (1.1.2)
