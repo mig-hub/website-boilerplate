@@ -14,7 +14,7 @@ use Rack::SslEnforcer, except_environments: 'development', :only => '/admin'
 
 use Rack::Deflater
 
-if PopulateMe::Mongo.settings.default_attachment_class.name == 'PopulateMe::GridFS'
+if PopulateMe::Mongo.settings.default_attachment_class.name == 'PopulateMe::GridFSAttachment'
   use Rack::GridServe, db: PopulateMe::GridFS.settings.db, prefix: 'attachment'
 end
 
