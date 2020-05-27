@@ -104,6 +104,15 @@ $mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
   @-webkit-keyframes #{$name} {
     @content;
   }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @-o-keyframes #{$name} {
+    @content;
+  }
   @keyframes #{$name} {
     @content;
   }
@@ -147,6 +156,10 @@ $mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
 
 @mixin transition($val...) {
   @include vendor(transition, $val);
+}
+
+@mixin animation($val...) {
+  @include vendor(animation, $val);
 }
 
 @mixin transform($val...) {
