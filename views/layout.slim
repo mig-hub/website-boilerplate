@@ -39,8 +39,10 @@ html [lang="en"
     meta property="og:url" content=request.url
     - unless @meta_image.nil?
       meta property="og:image" content=@meta_image.url
-      meta property="og:image:width" content=@meta_image.width
-      meta property="og:image:height" content=@meta_image.height
+      - unless blank? @meta_image.width
+        meta property="og:image:width" content=@meta_image.width
+      - unless blank? @meta_image.height
+        meta property="og:image:height" content=@meta_image.height
 
     meta name="twitter:title" content=@meta_title
     meta name="twitter:description" content=@meta_description
