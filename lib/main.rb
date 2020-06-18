@@ -146,6 +146,20 @@ class Main < Sinatra::Base
         player_options.merge!(VIMEO_LOOP_OPTS) if loop_mode
       end
       player_options.merge!(options)
+      player_options.each do |k,v|
+        if v == true
+          player_options[k] = 1
+        elsif v == false
+          player_options[k] = 0
+        end
+      end
+      if player_options[:autoplay] == 1
+        if player == :youtube
+          player_options[:mute] = 1
+        else
+          player_options[:muted] = 1
+        end
+      end
       player_options_string = player_options.map do |k,v|
         "#{k}=#{v}"
       end.join('&amp;')
