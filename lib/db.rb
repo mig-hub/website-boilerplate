@@ -4,13 +4,13 @@ require 'populate_me/mongo'
 Mongo::Logger.logger.level = Logger::ERROR
 
 if ENV['MONGODB_URI']
-  mongoclient = Mongo::Client.new(ENV['MONGODB_URI'])
+  $mongoclient = Mongo::Client.new(ENV['MONGODB_URI'])
 elsif ENV['MONGODB_NAME']
-  mongoclient = Mongo::Client.new([ '127.0.0.1:27017' ], :database => ENV['MONGODB_NAME'])
+  $mongoclient = Mongo::Client.new([ '127.0.0.1:27017' ], :database => ENV['MONGODB_NAME'])
 else
   raise "Missing mongo database. Add either MONGODB_URI or MONGODB_NAME to `.env`."
 end
-db = mongoclient.database
+db = $mongoclient.database
 
 PopulateMe::Mongo.set :db, db
 

@@ -2,6 +2,7 @@ ruby '2.6.5'
 
 source 'https://rubygems.org' do
   gem 'puma'
+  gem 'puma_worker_killer'
   gem 'rack'
   gem 'sinatra'
   gem 'slim'
