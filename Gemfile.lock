@@ -63,7 +63,7 @@ DEPENDENCIES
   bson_ext!
   minitest (>= 5.6.0)!
   mongo!
-  populate-me (~> 0.7)!
+  populate-me (~> 0.13)!
   puma!
   puma_worker_killer!
   rack!
