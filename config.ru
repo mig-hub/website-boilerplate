@@ -19,7 +19,7 @@ if PopulateMe::Mongo.settings.default_attachment_class.name == 'PopulateMe::Grid
 end
 
 use Rack::SassC, {
-  scss_location: 'public/css/scss',
+  scss_location: 'src/scss',
 }
 
 raise "Set SESSION_KEY_SECRET in .env with <session-key>/<session-secret>" if ENV['SESSION_KEY_SECRET'].nil?
