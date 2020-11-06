@@ -14,6 +14,10 @@ $mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
   @return ($size / $font-size) + 0em;
 }
 
+@function vw($size) {
+  @return ($size / $ref-width * 100vw);
+}
+
 @function line-height($size, $font-size: $body-size) {
   @return ($size / $font-size);
 }
