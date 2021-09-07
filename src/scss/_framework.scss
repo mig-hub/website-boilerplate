@@ -1,40 +1,15 @@
 // Vars
 
 $vendors: ('-webkit-','-moz-','-ms-','-o-','');
-$body-size: 16px;
+$body-size: 18px;
 $ref-width: 1280px;
-$tablet-breakpoint: 1000px;
-$phone-breakpoint: 700px;
 
-$mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
+$mobile: (body-size: 18px, ref-width: 375px, breakpoint: 800px);
 
 // Helpers
 
-@function em($size, $font-size: $body-size) {
-  @return ($size / $font-size) + 0em;
-}
-
 @function vw($size) {
   @return ($size / $ref-width * 100vw);
-}
-
-@function line-height($size, $font-size: $body-size) {
-  @return ($size / $font-size);
-}
-
-@mixin set-body-size($size: $body-size, $width: $ref-width) {
-  // For font-size in vw
-  // Use in body at the top and then use ems for everything else
-  font-size: em($size, 16px);
-  font-size: (($size / $width * 100) + 0vw);
-}
-
-@mixin font-size($size, $line-height: normal, $font-size: $body-size) {
-  // Sets font-size and line-height in one go
-  font-size: em($size, $font-size);
-  @if $line-height != normal {
-    line-height: line-height($line-height, $size);
-  }
 }
 
 @mixin portrait {
@@ -61,14 +36,8 @@ $mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
   }
 }
 
-@mixin mobile {
-  @include breakpoint($mobile) {
-    @content;
-  }
-}
-
-@mixin portrait-or($name) {
-  @media screen and (orientation: portrait), screen and (max-width: map-get($name, breakpoint)) {
+@mixin orientated-breakpoint($name, $orientation: portrait) {
+  @media screen and (orientation: $orientation) and (max-width: map-get($name, breakpoint)) {
     $tmp-size: $body-size;
     $tmp-width: $ref-width;
     $body-size: map-get($name, body-size) !global;
@@ -79,21 +48,32 @@ $mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
   }
 }
 
-@mixin landscape-not($name) { // Opposite of portrait-or
-  @media screen and (orientation: landscape) and (min-width: map-get($name, breakpoint)) {
+@mixin not-orientated-breakpoint($name, $orientation: portrait) {
+  @media not screen and (orientation: $orientation) and (max-width: map-get($name, breakpoint)) {
+    $tmp-size: $body-size;
+    $tmp-width: $ref-width;
+    $body-size: map-get($name, body-size) !global;
+    $ref-width: map-get($name, ref-width) !global;
+    @content;
+    $body-size: $tmp-size !global;
+    $ref-width: $tmp-width !global;
+  }
+}
+
+@mixin mobile {
+  @include breakpoint($mobile) {
     @content;
   }
 }
 
-
-@mixin portrait-or-mobile {
-  @include portrait-or($mobile) {
+@mixin mobile-portrait {
+  @include orientated-breakpoint($mobile) {
     @content;
   }
 }
 
-@mixin landscape-not-mobile { // Opposite of portrait-or-mobile
-  @include landscape-not($mobile) {
+@mixin not-mobile-portrait {
+  @media not screen and (orientation: portrait) and (max-width: map-get($mobile, breakpoint)) {
     @content;
   }
 }
@@ -201,19 +181,6 @@ $mobile: (body-size: 16px, ref-width: 800px, breakpoint: 800px);
   }
 }
 
-@mixin grid-with-prefix($prefix) {
-  // Creates most used sizes for a grid
-  .#{$prefix}-1-12  { width: (100% / 12); }
-  .#{$prefix}-1-8   { width: (100% / 8);}
-  .#{$prefix}-1-6   { width: (100% / 6); }
-  .#{$prefix}-1-4   { width: 25%; }
-  .#{$prefix}-1-3   { width: (100% / 3); }
-  .#{$prefix}-1-2   { width: 50%; }
-  .#{$prefix}-2-3   { width: (100% / 3 * 2); }
-  .#{$prefix}-3-4   { width: 75%; }
-  .#{$prefix}-1-1   { width: 100%; }
-}
-
 @mixin optional-at-root($sel) {
   @at-root #{if(not &, $sel, selector-append(&, $sel))} {
     @content;
@@ -270,8 +237,6 @@ a { color: inherit; }
 
 // Layout
 
-.center-div { margin-left: auto; margin-right: auto; }
-
 .margin-top-0,
 .strip-margins-container > *:first-child {
   margin-top: 0;
@@ -281,71 +246,8 @@ a { color: inherit; }
   margin-bottom: 0;
 }
 
-@each $prop in margin, padding {
-  @each $direction in top, bottom {
-    .#{$prop}-#{$direction}-half { #{$prop}-#{$direction}: 0.5em; }
-    @each $num in 1, 2, 3, 4 {
-      .#{$prop}-#{$direction}-#{$num} { #{$prop}-#{$direction}: #{$num}em; }
-    }
-  }
-}
-
-// Float container
-
-.float-container > * { float: left; }
-.float-container:after,
-.clear {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
-}
-
-// Inline block container
-
-.inline-block-container > * {
-  @include inline-block;
-  vertical-align: top;
-}
-
-// Atributes
-
-.text-right { text-align: right; }
-.text-center { text-align: center; }
-.uppercase { text-transform: uppercase; }
-
-// Grid
-
-.gutters {
-  padding-left: 0.5em; padding-right: 0.5em;
-}
-
-.trunk {
-  width: 100%; max-width: $ref-width;
-  margin: 0 auto;
-}
-
-.invisible { visibility: hidden; }
-.L-show { display: block; display: initial !important; }
-.L-hide { display: none !important; }
-
-@include grid-with-prefix('L');
-
-@media screen and (max-width: $tablet-breakpoint) {
-  .M-show { display: block; display: initial !important; }
-  .M-hide { display: none !important; }
-  @include grid-with-prefix('M');
-}
-
-@media screen and (max-width: $phone-breakpoint) {
-  .S-show { display: block; display: initial !important; }
-  .S-hide { display: none !important;}
-  @include grid-with-prefix('S');
-}
-
 // Debug spacing problems
+
 %debug {
   * { background-color: rgba(255,0,0,.2); }
   * * { background-color: rgba(0,255,0,.2); }

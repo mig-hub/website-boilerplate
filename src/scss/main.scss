@@ -2,21 +2,21 @@
 
 // Vars
 
-$body-size: 16px;
+$body-size: 18px;
 $ref-width: 1280px;
-$body-color: #000000;
-$background-color: #ffffff;
+$fg-color: #000000;
+$bg-color: #ffffff;
 $body-font-family: sans-serif;
 
 // Global
 
 body {
-  background-color: $background-color;
-  color: $body-color;
+  background-color: $bg-color;
+  color: $fg-color;
   font-family: $body-font-family;
-  @include set-body-size;
-  @include mobile {
-    @include set-body-size;
+  font-size: vw($body-size);
+  @include mobile-portrait {
+    font-size: vw($body-size);
   }
 }
 
