@@ -19,7 +19,7 @@ GEM
       json (~> 2.1)
       sinatra (~> 2)
       web-utils (~> 0)
-    puma (5.4.0)
+    puma (5.6.2)
       nio4r (~> 2.0)
     puma_worker_killer (0.3.1)
       get_process_mem (~> 0.2)
