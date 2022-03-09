@@ -210,7 +210,12 @@ $mobile: (body-size: 18px, ref-width: 375px, breakpoint: 800px);
 
 // Resets
 
-* { @include box-sizing(border-box); }
+* {
+  @include box-sizing(border-box);
+  &:before, &:after {
+    @include box-sizing(border-box);
+  }
+}
 
 img { border: 0; margin: 0; padding: 0; width: 100%; display: block; }
 .not-100-percent { width: auto; }
